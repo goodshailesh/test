@@ -1,0 +1,4 @@
+FROM postgres
+ENV PGPASSWORD sy05dec
+WORKDIR /app
+ADD . /app

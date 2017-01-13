@@ -1,0 +1,47 @@
+version: "2"
+services:
+ app:
+  build:
+   context: .
+   dockerfile: Dockerfile.app.dev
+  volumes:
+  - /app
+  environment:
+   MIPADDR: "${XIPADDR}"
+   MPORT: "${XPORT}"
+  networks:
+  - mynet
+  ports:
+  - "${XPORT}:3000"
+  command: nodemon server.js
+ pgdb:
+  build:
+   context: .
+   dockerfile: Dockerfile.db.dev
+  networks:
+  - mynet
+  volumes:
+  - /app
+  environment:
+   POSTGRES_PASSWORD: sy05dec
+   POSTGRES_USER: soni
+   POSTGRES_DB: appdb
+ migration:
+  build:
+   context: .
+   dockerfile: Dockerfile.migration.dev
+  depends_on:    #Essentially Important for orchrastration
+  - pgdb
+  networks:
+  - mynet
+  volumes:
+  - /app
+  environment:
+   PGPASSWORD: sy05dec
+   PGUSER: soni
+   PGDATABASE: appdb
+  command: ./wait-for-it.sh pgdb:5432 --strict -- psql -Usoni appdb -h pgdb -p 5432 -f data.sql
+networks:
+ mynet:
+  external:
+   name: "${NET_LABEL}"

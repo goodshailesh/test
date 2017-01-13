@@ -1,0 +1,13 @@
+FROM alpine:latest
+WORKDIR /app
+ADD . /app
+COPY package.json /app
+COPY server.js /app
+EXPOSE 3000
+RUN apk update
+RUN apk add nodejs
+RUN npm config set strict-ssl false
+RUN npm install express
+RUN npm install -g nodemon
+RUN npm install pg
+RUN npm install ip
