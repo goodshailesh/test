@@ -24,6 +24,14 @@ docker-compose down
 docker images | grep 'none' | sed 's/\s\{2,\}/#/g' | cut -d '#' -f 3 | xargs docker rmi []
 #docker network rm inet || true
 docker network create $NET_LABEL || true
-docker-compose up --build
+docker-compose up -d --build
+echo -n "Initiating the services......\nPlease wait......"
+for i in {1..60}; do
+	sleep 1
+	echo -n "."
+done
+echo " "
+docker log "${SHA}_pgdb_1"
+docker log "${SHA}_app_1"
 exit 0;
 
