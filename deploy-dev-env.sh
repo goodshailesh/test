@@ -9,8 +9,9 @@ export SHA=$1
 #export XIPADDR=`ifconfig | grep -A 1 'enp0s8' | tail -n 1 | tr -s ' ' ' ' | cut -d ' ' -f 3`
 export XIPADDR=$2
 
-# RANDOM PORT based on last 5 digits of current epoch 
-export XPORT=`date +%s | sed 's/[[:digit:]]\{5\}\([[:digit:]]\{5\}\).*/\1/'`
+# RANDOMPORT based on last 5 digits of current epoch-https://www.cyberciti.biz/faq/bash-shell-script-generating-random-numbers/
+#export XPORT=`date +%s | sed 's/[[:digit:]]\{5\}\([[:digit:]]\{5\}\).*/\1/'`
+export XPORT=`echo $((RANDOM%9999+30000))`
 #Creates a new isolated project each time
 export COMPOSE_PROJECT_NAME="sha${SHA}"
 export NET_LABEL=$COMPOSE_PROJECT_NAME
