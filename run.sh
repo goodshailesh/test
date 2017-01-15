@@ -19,8 +19,7 @@ cd /home/soni/job-workspace
 mkdir $SHA
 cd $SHA
 git init
-git remote add origin git@github.com:goodshailesh/nodejs-docker-local-dev-env
-#git remote add origin git@github.com:goodshailesh/del
+git remote add origin git@github.com:goodshailesh/test
 git pull origin master
 git checkout $SHA
 export IHOME_PATH=`pwd`
