@@ -23,6 +23,6 @@ println "Executing: " + cmd
 def proc = cmd.execute(null, new File("/var/lib/jenkins/workspace/local-dev-env-trigger-manual"))
 proc.text.eachLine {println it}
 proc.consumeProcessOutput(sout, serr)
-//proc.waitForOrKill(0000)
+//proc.waitForOrKill(40000)
 println sout
 
